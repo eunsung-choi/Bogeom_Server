@@ -22,7 +22,13 @@ public abstract class Review {
     private LocalDateTime reviewDate;
     private Long reviewRate;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "item_id")
     private Item item;
+
+    //==연관관계 메서드==//
+    public void setItem(Item item){
+        this.item = item;
+        item.getReviews().add(this);
+    }
 }

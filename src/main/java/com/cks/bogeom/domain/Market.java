@@ -28,6 +28,12 @@ public class Market {
     private int marketName;
     private int marketPrice;
 
+    //==연관관계 메서드==//
+    public void setItem(Item item){
+        this.item = item;
+        item.getMarkets().add(this);
+    }
+
     //==생성 메서드==//
     public static Market createMarket(Item item, int marketPrice) {
         Market market = new Market();

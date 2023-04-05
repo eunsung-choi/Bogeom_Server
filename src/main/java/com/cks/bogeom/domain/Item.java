@@ -12,7 +12,7 @@ import java.util.List;
 import static javax.persistence.FetchType.LAZY;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Item {
     @Id @GeneratedValue
     @Column(name = "item_id") //pk 이름
