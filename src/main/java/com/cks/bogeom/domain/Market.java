@@ -28,18 +28,18 @@ public class Market {
     private int marketName; //판매점 이름
     private int marketPrice; //판매가격
 
-    //==연관관계 메서드==//
-    public void setItem(Item item){
-        this.item = item;
-        item.getMarkets().add(this);
-    }
-
-    //==생성 메서드==//
-    public static Market createMarket(Item item, int marketPrice) {
-        Market market = new Market();
-        market.setItem(item);
-        market.setMarketPrice(marketPrice);
-
-        return market;
-    }
+//    //==연관관계 메서드==//
+//    public void setItem(Item item){
+//        this.item = item;
+//        item.getMarkets().add(this);
+//    }
+//
+//    //==생성 메서드==//
+//    public static Market createMarket(Item item, int marketPrice) {
+//        Market market = new Market();
+//        market.setItem(item);
+//        market.setMarketPrice(marketPrice);
+//
+//        return market;
+//    }
 }

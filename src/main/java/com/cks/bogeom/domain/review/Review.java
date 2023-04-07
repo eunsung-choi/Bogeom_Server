@@ -26,9 +26,9 @@ public abstract class Review {
     private LocalDateTime reviewDate; //리뷰 날짜
     private Long reviewRate; //리뷰 별점
 
-    //==연관관계 메서드==//
-    public void setItem(Item item){
-        this.item = item;
-        item.getReviews().add(this);
-    }
+//    //==연관관계 메서드==//
+//    public void setItem(Item item){
+//        this.item = item;
+//        item.getReviews().add(this);
+//    }
 }
