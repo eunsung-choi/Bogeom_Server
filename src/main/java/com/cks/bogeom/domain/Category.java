@@ -20,7 +20,7 @@ public class Category {
 
     private String categoryName;
 
-    @ManyToMany
+    @ManyToMany //다대다 관계, 중간테이블 매핑
     @JoinTable(name = "category_item",
             joinColumns = @JoinColumn(name = "category_id"),
             inverseJoinColumns = @JoinColumn(name = "item_id"))
@@ -31,7 +31,7 @@ public class Category {
     private Category parent; //내 부모
 
     @OneToMany(mappedBy = "parent")
-    private List<Category> child = new ArrayList<>(); //내 자식
+    private List<Category> child = new ArrayList<>(); //내 자식(카테고리 여러개)
 
     //==연관관계 메서드==//
     public void addChildCategory(Category child) {

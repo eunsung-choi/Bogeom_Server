@@ -22,11 +22,11 @@ public class Market {
     private Long id;
 
     @ManyToOne(fetch = LAZY)
-    @JoinColumn(name = "item_id") //매핑을 뭘로 할건지
+    @JoinColumn(name = "item_id") //매핑을 뭘로 할건지,외래키
     private Item item;
 
-    private int marketName;
-    private int marketPrice;
+    private int marketName; //판매점 이름
+    private int marketPrice; //판매가격
 
     //==연관관계 메서드==//
     public void setItem(Item item){
