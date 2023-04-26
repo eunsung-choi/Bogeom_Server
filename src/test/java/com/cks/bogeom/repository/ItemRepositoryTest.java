@@ -5,6 +5,7 @@ import com.cks.bogeom.domain.Market;
 import com.cks.bogeom.domain.review.Food;
 import com.cks.bogeom.service.ItemService;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -27,16 +28,23 @@ public class ItemRepositoryTest {
     @Autowired EntityManager em;
 
     @Test
-    public void 아이템등록() throws Exception{
-        //given
+    @DisplayName("item이 DB에 잘 저장 되는지 확인")
+    public void saveItem() throws Exception{
+        //given(테스트 위한 사전 조건 및 Mocking 할 영역)
         Item item = new Item();
         item.setItemName("신라면");
 
-        //when
+        //when(테스트를 할 영역)
         Long saveId = itemService.saveItem(item);
 
-        //then
+        //then(테스트 이후 예상 결과와 실제 결과를 확인하는 영역)
         assertEquals(item, itemRepository.findOne(saveId));
+    }
+
+    @Test
+    public void 마켓등록() throws Exception{
+        //given
+        Market market = createMarket();
     }
 
 
@@ -48,13 +56,13 @@ public class ItemRepositoryTest {
 //        em.persist(food);
 //        return food;
 //    }
-//
-//    private Market createMarket(){
-//        Market market = new Market();
-//        market.setMarketName("네이버");
-//        market.setMarketPrice(1000);
-//        em.persist(market);
-//        return market;
-//    }
+
+    private Market createMarket(){
+        Market market = new Market();
+        market.setMarketName("네이버");
+        market.setMarketPrice(1000);
+        em.persist(market);
+        return market;
+    }
 
 }
