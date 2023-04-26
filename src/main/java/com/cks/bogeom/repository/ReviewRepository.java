@@ -1,5 +1,6 @@
 package com.cks.bogeom.repository;
 
+import com.cks.bogeom.domain.Market;
 import com.cks.bogeom.domain.review.Review;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -26,6 +27,12 @@ public class ReviewRepository {
     }
 
     // 리뷰에 name속성 없으므로 이름으로 조회 불가능, 단지 리뷰 리스트 열람 방식
+    //테스트 위해 코드 추가
+    public List<Review> findByName(String reviewContent){
+        return em.createQuery("select m from Review m where m.reviewName = :name", Review.class)
+                .setParameter("reviewContent", reviewContent)
+                .getResultList();
+    }
 
 }
 

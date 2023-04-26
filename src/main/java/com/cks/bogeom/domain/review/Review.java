@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE) //상속관계 부모
@@ -23,7 +24,7 @@ public abstract class Review {
     private Item item;
 
     private String reviewContent; //리뷰 내용
-    private LocalDateTime reviewDate; //리뷰 날짜
+    private int reviewDate; //리뷰 날짜
     private Long reviewRate; //리뷰 별점
 
 //    //==연관관계 메서드==//

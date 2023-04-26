@@ -14,7 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Table(name = "markets") //테이블명
 @Getter @Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Market {
 
     @Id @GeneratedValue
@@ -25,7 +25,7 @@ public class Market {
     @JoinColumn(name = "item_id") //매핑을 뭘로 할건지,외래키
     private Item item;
 
-    private int marketName; //판매점 이름
+    private String marketName; //판매점 이름
     private int marketPrice; //판매가격
 
 //    //==연관관계 메서드==//
