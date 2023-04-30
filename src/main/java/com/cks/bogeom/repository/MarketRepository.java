@@ -13,7 +13,14 @@ public class MarketRepository {
     private final EntityManager em;
 
     //마켓 저장
-    public void save(Market market){ em.persist(market);}
+    public void save(Market market){
+        if(market.getId()==null){
+            em.persist(market);
+        } else{ //이미 저장된 market이면 업데이트
+            em.merge(market);
+        }
+
+    }
     //마켓 하나 찾기
     public Market findOne(Long id){return em.find(Market.class, id);}
     //전체 마켓 찾기
