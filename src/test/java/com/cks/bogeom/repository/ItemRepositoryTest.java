@@ -37,7 +37,6 @@ public class ItemRepositoryTest {
         //given(테스트 위한 사전 조건 및 Mocking 할 영역)
         Item item = new Item();
         item.setId(1L);
-        item.setItemName("신라면aus");
 
         //when(테스트를 할 영역)
         Long saveId = itemService.saveItem(item);

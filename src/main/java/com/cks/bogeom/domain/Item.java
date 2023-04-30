@@ -2,9 +2,7 @@ package com.cks.bogeom.domain;
 
 import com.cks.bogeom.domain.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,8 +12,9 @@ import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Getter @Setter
+//@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Item {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "item_id") //pk 이름
     private Long id;
 
@@ -30,14 +29,16 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<Market> markets = new ArrayList<>();
 
+    private String detailImg;
+    private String itemImg;
     @Column(length = 100)
     private String itemName;
-    private String itemImg;
+//
+//    public Item() {
+//    }
 
-    private String detailImg;
-
-    public Item() {
-
+    public Item(String itemName) {
+        this.itemName = itemName;
     }
 
     //==연관관계 메서드==//
@@ -59,9 +60,9 @@ public class Item {
         return item;
     }
 
-//    public Item(){
-//
-//    }
+    public Item(){
+
+    }
 //
 //    @Builder
 //    public Item(Long id,String itemName,String itemImg, String detailImg){

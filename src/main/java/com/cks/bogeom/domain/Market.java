@@ -14,7 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Market {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue
     @Column(name = "market_id") //pk이름
     private Long id;
 
@@ -24,6 +24,18 @@ public class Market {
 
     private String marketName; //판매점 이름
     private long marketPrice; //판매가격
+
+    public Market(String marketName){
+        this.marketName = marketName;
+    }
+
+    public Market(String marketName, long marketPrice, Item item){
+        this.marketName = marketName;
+        this.marketPrice = marketPrice;
+        if (item != null){
+            changeItem(item);
+        }
+    }
 
     //==생성 메서드==//
     public static Market createMarket(Item item, String marketName, long marketPrice) {
@@ -42,9 +54,9 @@ public class Market {
 //        this.item = item;
 //    }
 //
-//    public Market(){
-//
-//    }
+    public Market(){
+
+    }
 
 //    //==연관관계 메서드==//
 //    public void setItem(Item item){
@@ -52,5 +64,10 @@ public class Market {
 //        item.getMarkets().add(this);
 //    }
 //
+    // 연관관계 편의 메서드
+    public void changeItem(Item item){
+        this.item = item;
+        item.getMarkets().add(this);
+    }
 
 }
