@@ -27,36 +27,28 @@ public class Item {
 
     @JsonIgnore
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
-    private List<Market> markets = new ArrayList<>();
+    private List<MarketItem> marketItems = new ArrayList<>();
 
     private String itemName;
     private String itemImg;
     private String detailImg;
 
     //==연관관계 메서드==//
-    public void addReview(Review review) {
-        reviews.add(review);
-        review.setItem(this);
-    }
 
-    public void addMarket(Market market) {
-        markets.add(market);
-        market.setItem(this);
+    public void addMarketItem(MarketItem marketItem) {
+        marketItems.add(marketItem);
+        marketItem.setItem(this);
     }
 
     //==생성 메서드==//
-    public static Item createItem(String itemName, String itemImg, String detailImg, List<Review> reviewList, Market... markets) {
+    public static Item createItem(MarketItem... marketItems) {
         Item item = new Item();
-        item.setItemName(itemName);
-        item.setItemImg(itemImg);
-        item.setDetailImg(detailImg);
-        for(Review review : reviewList){
-            item.addReview(review);
+//        item.setItemName(); test에서 넣어줌
+//        item.setItemImg();
+//        item.setDetailImg();
+        for(MarketItem marketItem : marketItems){
+            item.addMarketItem(marketItem);
         }
-        for(Market market : markets){
-            item.addMarket(market);
-        }
-
         return item;
     }
 
