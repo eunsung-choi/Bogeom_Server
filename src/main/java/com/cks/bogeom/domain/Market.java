@@ -1,9 +1,6 @@
 package com.cks.bogeom.domain;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
@@ -17,7 +14,7 @@ import static javax.persistence.FetchType.LAZY;
 //@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Market {
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "market_id") //pk이름
     private Long id;
 
@@ -26,7 +23,28 @@ public class Market {
     private Item item;
 
     private String marketName; //판매점 이름
-    private int marketPrice; //판매가격
+    private long marketPrice; //판매가격
+
+    //==생성 메서드==//
+    public static Market createMarket(Item item, String marketName, long marketPrice) {
+        Market market = new Market();
+        market.setItem(item);
+        market.setMarketName(marketName);
+        market.setMarketPrice(marketPrice);
+
+        return market;
+    }
+
+//    @Builder
+//    public Market(String marketName,long marketPrice, Item item){
+//        this.marketName = marketName;
+//        this.marketPrice = marketPrice;
+//        this.item = item;
+//    }
+//
+//    public Market(){
+//
+//    }
 
 //    //==연관관계 메서드==//
 //    public void setItem(Item item){
@@ -34,12 +52,5 @@ public class Market {
 //        item.getMarkets().add(this);
 //    }
 //
-//    //==생성 메서드==//
-//    public static Market createMarket(Item item, int marketPrice) {
-//        Market market = new Market();
-//        market.setItem(item);
-//        market.setMarketPrice(marketPrice);
-//
-//        return market;
-//    }
+
 }

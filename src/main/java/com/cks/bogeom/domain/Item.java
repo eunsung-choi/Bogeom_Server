@@ -2,6 +2,7 @@ package com.cks.bogeom.domain;
 
 import com.cks.bogeom.domain.review.Review;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,7 +15,7 @@ import static javax.persistence.FetchType.LAZY;
 @Entity
 @Getter @Setter
 public class Item {
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "item_id") //pk 이름
     private Long id;
 
@@ -29,9 +30,15 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<Market> markets = new ArrayList<>();
 
+    @Column(length = 100)
     private String itemName;
     private String itemImg;
+
     private String detailImg;
+
+    public Item() {
+
+    }
 
     //==연관관계 메서드==//
     public void addReview(Review review) {
@@ -39,26 +46,43 @@ public class Item {
         review.setItem(this);
     }
 
-    public void addMarket(Market market) {
-        markets.add(market);
-        market.setItem(this);
-    }
-
     //==생성 메서드==//
-    public static Item createItem(String itemName, String itemImg, String detailImg, List<Review> reviewList, Market... markets) {
+    public static Item createItem(List<Review> reviewList, String itemName, String itemImg, String detailImg) {
         Item item = new Item();
-        item.setItemName(itemName);
-        item.setItemImg(itemImg);
-        item.setDetailImg(detailImg);
         for(Review review : reviewList){
             item.addReview(review);
         }
-        for(Market market : markets){
-            item.addMarket(market);
-        }
+        item.setItemName(itemName);
+        item.setItemImg(itemImg);
+        item.setDetailImg(detailImg);
 
         return item;
     }
+
+//    public Item(){
+//
+//    }
+//
+//    @Builder
+//    public Item(Long id,String itemName,String itemImg, String detailImg){
+//        this.id=id;
+//        this.itemName=itemName;
+//        this.itemImg=itemImg;
+//        this.detailImg=detailImg;
+//    }
+
+//    //==연관관계 메서드==//
+//    public void addReview(Review review) {
+//        reviews.add(review);
+//        review.setItem(this);
+//    }
+//
+//    public void addMarket(Market market) {
+//        markets.add(market);
+//        market.setItem(this);
+//    }
+
+
 
 
 }
