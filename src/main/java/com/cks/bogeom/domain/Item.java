@@ -50,9 +50,6 @@ public class Item {
     //==생성 메서드==//
     public static Item createItem(String itemName, String itemImg, String detailImg) {
         Item item = new Item();
-//        for(Review review : reviewList){
-//            item.addReview(review);
-//        }
         item.setItemName(itemName);
         item.setItemImg(itemImg);
         item.setDetailImg(detailImg);
@@ -72,7 +69,9 @@ public class Item {
 //        this.detailImg=detailImg;
 //    }
 
+
 //    //==연관관계 메서드==//
+//
 //    public void addReview(Review review) {
 //        reviews.add(review);
 //        review.setItem(this);

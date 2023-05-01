@@ -1,8 +1,10 @@
 package com.cks.bogeom.domain.review;
 
 import com.cks.bogeom.domain.Item;
-import lombok.*;
-import lombok.experimental.SuperBuilder;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -43,5 +45,7 @@ public class Review {
         this.item = item;
         item.getReviews().add(this);
     }
+
+    //==리뷰 삭제 메서드==//
 
 }

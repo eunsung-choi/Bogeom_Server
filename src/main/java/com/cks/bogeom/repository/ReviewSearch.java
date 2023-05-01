@@ -7,3 +7,4 @@ import lombok.Setter;
 public class ReviewSearch {
     private int itemId; //아이템 id
 }
+

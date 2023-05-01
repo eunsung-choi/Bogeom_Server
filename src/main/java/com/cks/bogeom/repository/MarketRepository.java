@@ -31,4 +31,6 @@ public class MarketRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+
 }
