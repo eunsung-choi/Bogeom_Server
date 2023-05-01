@@ -1,7 +1,10 @@
 package com.cks.bogeom.service;
 
+import com.cks.bogeom.domain.Item;
 import com.cks.bogeom.domain.review.Review;
+import com.cks.bogeom.repository.ItemRepository;
 import com.cks.bogeom.repository.ReviewRepository;
+import com.cks.bogeom.repository.ReviewSearch;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -9,34 +12,38 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional(readOnly = false)
 @RequiredArgsConstructor
 public class ReviewService {
-
     private final ReviewRepository reviewRepository;
+    private final ItemRepository itemRepository;
 
-    /**
-     * 리뷰 등록
-     */
     @Transactional
-    public Long join(Review review) {
+    public void update(Long id, String content, Long rate){
+        Review review = reviewRepository.findOne(id);
+        review.setReviewContent(content);
+        review.setReviewRate(rate);
+    }
 
-        validateDuplicateReview(review); //중복 리뷰 검증
+    @Transactional
+    public Long makeReview(Long itemId, String content, Long rate) { //리뷰 생성 후 저장
+        Item item = itemRepository.findOne(itemId);
+        Review review = Review.createReview(item, content, rate);
         reviewRepository.save(review);
         return review.getId();
     }
-    private void validateDuplicateReview(Review review) {
-        List<Review> findReviews = reviewRepository.findByName(review.getReviewContent());
-        if (!findReviews.isEmpty()) {
-            throw new IllegalStateException("이미 등록한 리뷰입니다.");
-        }
-    }
+
+    //리뷰 삭제 기능 만들기
+
     //리뷰 전체 조회
-    public List<Review> findMembers() {
+    public List<Review> findAllReviews(){
         return reviewRepository.findAll();
     }
 
-    public Review findOne(Long memberId) {
-        return reviewRepository.findOne(memberId);
+    //리뷰 검색
+    public List<Review> findReviews(ReviewSearch reviewSearch) {
+        return reviewRepository.findAllByString(reviewSearch);
     }
+
+
 }

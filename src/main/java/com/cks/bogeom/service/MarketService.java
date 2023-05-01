@@ -15,8 +15,22 @@ public class MarketService {
     private final MarketRepository marketRepository;
 
     @Transactional
-    public Long saveMarket(Market market){
+    public void saveMarket(Market market) {
         marketRepository.save(market);
-        return market.getId();
+    }
+    @Transactional
+    public void updateMarket(Long marketId, String marketName, int marketPrice){
+        Market findMarket = marketRepository.findOne(marketId);
+        //값 변경
+        findMarket.setMarketName(marketName);
+        findMarket.setMarketPrice(marketPrice);
+    }
+
+    public List<Market> findMarkets(){
+        return marketRepository.findAll();
+    }
+
+    public Market findOne(Long marketId) {
+        return marketRepository.findOne(marketId);
     }
 }

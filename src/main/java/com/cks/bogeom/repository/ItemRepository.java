@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemRepository {
     @PersistenceContext
-    EntityManager em;
+    private final EntityManager em;
 
     //item 저장
     public void save(Item item){

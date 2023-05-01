@@ -15,9 +15,8 @@ public class MarketRepository {
     private EntityManager em;
 
     //마켓 저장
-    public Long save(Market market){
+    public void save(Market market){
         em.persist(market);
-        return market.getId();
     }
     //마켓 하나 찾기
     public Market findOne(Long id){return em.find(Market.class, id);}
