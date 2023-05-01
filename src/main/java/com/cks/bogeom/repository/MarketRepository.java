@@ -5,17 +5,18 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class MarketRepository {
-    private final EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
     //마켓 저장
     public void save(Market market){
         em.persist(market);
-
     }
     //마켓 하나 찾기
     public Market findOne(Long id){return em.find(Market.class, id);}
