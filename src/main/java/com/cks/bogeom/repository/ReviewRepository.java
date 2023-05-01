@@ -34,5 +34,9 @@ public class ReviewRepository {
                 .getResultList();
     }
 
+    public List<Review> findById(Long itemId) {
+        return null;
+    }
+
 }
 

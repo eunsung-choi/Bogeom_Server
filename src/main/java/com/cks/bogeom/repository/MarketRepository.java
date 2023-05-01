@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class MarketRepository {
-    private final EntityManager em;
+    @PersistenceContext
+    private EntityManager em;
 
     //마켓 저장
     public Long save(Market market){

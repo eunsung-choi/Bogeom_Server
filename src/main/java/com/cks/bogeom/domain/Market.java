@@ -58,11 +58,11 @@ public class Market {
 
     }
 
-//    //==연관관계 메서드==//
-//    public void setItem(Item item){
-//        this.item = item;
-//        item.getMarkets().add(this);
-//    }
+    //==연관관계 메서드==//
+    public void setItem(Item item){
+        this.item = item;
+        item.getMarkets().add(this);
+    }
 //
     // 연관관계 편의 메서드
     public void changeItem(Item item){

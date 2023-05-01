@@ -48,11 +48,11 @@ public class Item {
     }
 
     //==생성 메서드==//
-    public static Item createItem(List<Review> reviewList, String itemName, String itemImg, String detailImg) {
+    public static Item createItem(String itemName, String itemImg, String detailImg) {
         Item item = new Item();
-        for(Review review : reviewList){
-            item.addReview(review);
-        }
+//        for(Review review : reviewList){
+//            item.addReview(review);
+//        }
         item.setItemName(itemName);
         item.setItemImg(itemImg);
         item.setDetailImg(detailImg);

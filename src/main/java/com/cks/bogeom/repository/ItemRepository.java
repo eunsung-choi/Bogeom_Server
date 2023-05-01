@@ -6,12 +6,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class ItemRepository {
-    private final EntityManager em;
+    @PersistenceContext
+    EntityManager em;
 
     //item 저장
     public void save(Item item){

@@ -18,8 +18,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ItemService {
     private final ItemRepository itemRepository;
-    private final ReviewRepository reviewRepository;
-    private final MarketRepository marketRepository;
 
     @Transactional
     public Long saveItem(Item item) {
@@ -28,8 +26,8 @@ public class ItemService {
     }
 
     @Transactional
-    public void selctItem() {
-        itemRepository.findAll();
+    public List<Item> findItems() {
+        return itemRepository.findAll();
     }
     /**
      * 상품등록
@@ -42,10 +40,6 @@ public class ItemService {
 //
 //        Item item = Item.createItem(reviewList, markets);
 //    }
-
-    public List<Item> findItems() {
-        return itemRepository.findAll();
-    }
 
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);

@@ -29,7 +29,7 @@ public class MarketTest {
         em.persist(itemB);
 
         Market market1 = new Market("market1", 10, itemA);
-        Market market2 = new Market("market2", 100, itemB);
+        Market market2 = new Market("market4", 100, itemB);
         em.persist(market1);
         em.persist(market2);
 
