@@ -19,7 +19,7 @@ public class MarketService {
         marketRepository.save(market);
     }
     @Transactional
-    public void updateMarket(Long marketId, String marketName, int marketPrice){
+    public void updateMarket(Long marketId, String marketName, Long marketPrice){
         Market findMarket = marketRepository.findOne(marketId);
         //값 변경
         findMarket.setMarketName(marketName);
