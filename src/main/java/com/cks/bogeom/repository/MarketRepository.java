@@ -14,11 +14,7 @@ public class MarketRepository {
 
     //마켓 저장
     public void save(Market market){
-        if(market.getId()==null){
-            em.persist(market);
-        } else{ //이미 저장된 market이면 업데이트
-            em.merge(market);
-        }
+        em.persist(market);
 
     }
     //마켓 하나 찾기
@@ -34,4 +30,6 @@ public class MarketRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
+
+
 }

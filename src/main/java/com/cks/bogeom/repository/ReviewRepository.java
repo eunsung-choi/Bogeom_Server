@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import java.util.List;
 
 @Repository
@@ -26,6 +27,29 @@ public class ReviewRepository {
     }
 
     // 리뷰에 name속성 없으므로 이름으로 조회 불가능, 단지 리뷰 리스트 열람 방식
+    //굳이 ReviewSearch 만들 필요 없음 - id로만 조회하기때문, 확장성 고려
+    public List<Review> findAllByString(ReviewSearch reviewSearch) {
+        String jpql = "select r from Review r join r.item i";
+        boolean isFirstCondition = true;
+
+        //Item id 검색
+        if (reviewSearch.getItemId()>=0) {
+            if (isFirstCondition) {
+                jpql+= " where";
+                isFirstCondition = false;
+            } else {
+                jpql += " and";
+            }
+            jpql += " item.id like :id";
+        }
+
+        TypedQuery<Review> query = em.createQuery(jpql, Review.class)
+                .setMaxResults(1000);
+        if (reviewSearch.getItemId() >= 0) {
+            query = query.setParameter("id", reviewSearch.getItemId());
+        }
+        return query.getResultList();
+    }
 
 }
 
