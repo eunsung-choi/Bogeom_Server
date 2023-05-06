@@ -72,7 +72,7 @@ public class MarketApiController {
 
     //==Market 조회 API==//
     @GetMapping("/api/markets")
-    public Result findAllMarket(){
+    public Result findAll(){
         List<Market> findMarkets = marketService.findMarkets();
         List<MarketDto> collect = findMarkets.stream()
                 .map(m -> new MarketDto(m.getMarketName()))

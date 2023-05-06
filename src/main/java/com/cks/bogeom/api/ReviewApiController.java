@@ -68,7 +68,7 @@ public class ReviewApiController {
 
     //==Review 조회 API==//
     @GetMapping("/api/reviews")
-    public Result findAllReview(){
+    public Result findAll(){
         List<Review> findReviews = reviewService.findAllReviews();
         List<ReviewDto> collect = findReviews.stream()
                 .map(m -> new ReviewDto(m.getItem().getId(),m.getId(), m.getReviewContent(), m.getReviewDate(), m.getReviewRate()))

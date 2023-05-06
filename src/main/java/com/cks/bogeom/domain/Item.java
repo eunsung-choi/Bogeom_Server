@@ -33,9 +33,6 @@ public class Item {
     private String itemImg;
     @Column(length = 100)
     private String itemName;
-//
-//    public Item() {
-//    }
 
     public Item(String itemName) {
         this.itemName = itemName;

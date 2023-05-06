@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.error.Mark;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Service
@@ -20,7 +21,7 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public void update(Long itemId, String itemName, int price, String img, String dImg){
+    public void update(Long itemId, String itemName, String img, String dImg){
         Item item = itemRepository.findOne(itemId);
         item.setItemName(itemName);
         item.setItemImg(img);
@@ -28,7 +29,12 @@ public class ItemService {
     }
 
     @Transactional
-    public Long saveItem(Item item) {
+    public Long saveItem(String itemName, String itemImg,String detailImg) {
+        Item item = new Item();
+        item.setItemName(itemName);
+        item.setItemImg(itemImg);
+        item.setDetailImg(detailImg);
+        //repo에 저장
         itemRepository.save(item);
         return item.getId();
     }

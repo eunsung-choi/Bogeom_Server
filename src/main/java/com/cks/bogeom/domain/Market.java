@@ -37,17 +37,17 @@ public class Market {
         item.getMarkets().add(this); //market 추가
     }
 
-    public Market(String marketName){
-        this.marketName = marketName;
-    }
-
-    public Market(String marketName, Long marketPrice, Item item){
-        this.marketName = marketName;
-        this.marketPrice = marketPrice;
-        if (item != null){
-            setItem(item);
-        }
-    }
+//    public Market(String marketName){
+//        this.marketName = marketName;
+//    }
+//
+//    public Market(String marketName, Long marketPrice, Item item){
+//        this.marketName = marketName;
+//        this.marketPrice = marketPrice;
+//        if (item != null){
+//            setItem(item);
+//        }
+//    }
 
     //==생성 메서드==//
     public static Market createMarket(Item item, String marketName, Long marketPrice) {
