@@ -3,6 +3,7 @@ package com.cks.bogeom.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 
@@ -44,7 +45,7 @@ public class Market {
         this.marketName = marketName;
         this.marketPrice = marketPrice;
         if (item != null){
-            changeItem(item);
+            setItem(item);
         }
     }
 
@@ -59,11 +60,11 @@ public class Market {
         return market;
     }
 
-    // 연관관계 편의 메서드
-    public void changeItem(Item item){
-        this.item = item;
-        item.getMarkets().add(this);
-    }
+//    // 연관관계 편의 메서드
+//    public void setItem(Item item){
+//        this.item = item;
+//        item.getMarkets().add(this);
+//    }
 
     //==market 삭제 메서드==//
 
