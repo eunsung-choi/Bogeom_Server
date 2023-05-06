@@ -33,32 +33,29 @@ public class Item {
     private String itemImg;
     @Column(length = 100)
     private String itemName;
-//
-//    public Item() {
-//    }
 
     public Item(String itemName) {
         this.itemName = itemName;
     }
 
-    //==연관관계 메서드==//
-    public void addReview(Review review) {
-        reviews.add(review);
-        review.setItem(this);
-    }
+//    //==연관관계 메서드==//
+//    public void addReview(Review review) {
+//        reviews.add(review);
+//        review.setItem(this);
+//    }
+
 
     //==생성 메서드==//
-    public static Item createItem(String itemName, String itemImg, String detailImg) {
-        Item item = new Item();
-        item.setItemName(itemName);
-        item.setItemImg(itemImg);
-        item.setDetailImg(detailImg);
-
-        return item;
-    }
+//    public static Item createItem(String itemName, String itemImg, String detailImg) {
+//        Item item = new Item();
+//        item.setItemName(itemName);
+//        item.setItemImg(itemImg);
+//        item.setDetailImg(detailImg);
+//
+//        return item;
+//    }
 
     public Item(){
-
     }
 //
 //    @Builder
@@ -76,11 +73,13 @@ public class Item {
 //        reviews.add(review);
 //        review.setItem(this);
 //    }
-//
+
 //    public void addMarket(Market market) {
 //        markets.add(market);
 //        market.setItem(this);
 //    }
+//
+
 
 
 

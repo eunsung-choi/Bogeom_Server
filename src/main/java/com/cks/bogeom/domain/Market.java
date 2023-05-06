@@ -3,6 +3,7 @@ package com.cks.bogeom.domain;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 
 import java.time.LocalDateTime;
 
@@ -36,17 +37,17 @@ public class Market {
         item.getMarkets().add(this); //market 추가
     }
 
-    public Market(String marketName){
-        this.marketName = marketName;
-    }
-
-    public Market(String marketName, Long marketPrice, Item item){
-        this.marketName = marketName;
-        this.marketPrice = marketPrice;
-        if (item != null){
-            changeItem(item);
-        }
-    }
+//    public Market(String marketName){
+//        this.marketName = marketName;
+//    }
+//
+//    public Market(String marketName, Long marketPrice, Item item){
+//        this.marketName = marketName;
+//        this.marketPrice = marketPrice;
+//        if (item != null){
+//            setItem(item);
+//        }
+//    }
 
     //==생성 메서드==//
     public static Market createMarket(Item item, String marketName, Long marketPrice) {
@@ -59,11 +60,11 @@ public class Market {
         return market;
     }
 
-    // 연관관계 편의 메서드
-    public void changeItem(Item item){
-        this.item = item;
-        item.getMarkets().add(this);
-    }
+//    // 연관관계 편의 메서드
+//    public void setItem(Item item){
+//        this.item = item;
+//        item.getMarkets().add(this);
+//    }
 
     //==market 삭제 메서드==//
 

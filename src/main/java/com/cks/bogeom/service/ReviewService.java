@@ -1,6 +1,7 @@
 package com.cks.bogeom.service;
 
 import com.cks.bogeom.domain.Item;
+import com.cks.bogeom.domain.Market;
 import com.cks.bogeom.domain.review.Review;
 import com.cks.bogeom.repository.ItemRepository;
 import com.cks.bogeom.repository.ReviewRepository;
@@ -46,6 +47,13 @@ public class ReviewService {
     public List<Review> findAllReviews(){
         return reviewRepository.findAll();
     }
+
+    //리뷰 한개 조회
+    public Review findOne(Long reviewId) {
+        //마켓 엔티티 조회
+        return reviewRepository.findOne(reviewId);
+    }
+
 
     //리뷰 검색
     public List<Review> findReviews(ReviewSearch reviewSearch) {
