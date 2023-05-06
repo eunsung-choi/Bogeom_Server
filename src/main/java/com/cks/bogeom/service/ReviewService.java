@@ -27,9 +27,16 @@ public class ReviewService {
 
     @Transactional
     public Long makeReview(Long itemId, String content, Long rate) { //리뷰 생성 후 저장
+
+        //엔티티 조회
         Item item = itemRepository.findOne(itemId);
+
+        //리뷰 생성
         Review review = Review.createReview(item, content, rate);
+
+        //리뷰 저장
         reviewRepository.save(review);
+
         return review.getId();
     }
 
