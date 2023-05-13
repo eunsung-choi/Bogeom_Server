@@ -28,8 +28,8 @@ public class MarketTest {
         em.persist(itemA);
         em.persist(itemB);
 
-        Market market1 = Market.createMarket(itemA,"market3",10L);
-        Market market2 = Market.createMarket(itemB,"market4",100L);
+        Market market1 = Market.createMarket(itemA,"market3",1023L,"dfsfd",1000L,3000,"dddd");
+        Market market2 = Market.createMarket(itemB,"market4",10233L,"daafd",2000L,2000,"ddaa");
         em.persist(market1);
         em.persist(market2);
 

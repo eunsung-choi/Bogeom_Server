@@ -21,7 +21,7 @@ public class ItemApiController {
     //==Item 저장 API==//
     @PostMapping("/api/items")
     public CreateItemResponse saveItem(@RequestBody @Valid CreateItemRequest request) {
-        Long itemId = itemService.saveItem(request.getItemName(), request.getItemImg(), request.getDetailImg());
+        Long itemId = itemService.saveItem(request.getItemName(), request.getItemImg(), request.getDetailImg(), request.getReviewClassCode(), request.getEnuriLink());
         return new CreateItemResponse(itemId);
     }
 
@@ -31,6 +31,8 @@ public class ItemApiController {
         private String itemName;
         private String itemImg;
         private String detailImg;
+        private String reviewClassCode;
+        private String enuriLink;
     }
 
     @Data
@@ -47,9 +49,9 @@ public class ItemApiController {
     public UpdateItemResponse updateItem(
             @PathVariable("id") Long id,
             @RequestBody @Valid UpdateItemRequest request){
-        itemService.update(id, request.getItemName(), request.getItemImg(), request.getDetailImg());
+        itemService.update(id, request.getItemName(), request.getItemImg(), request.getDetailImg(), request.getReviewClassCode(), request.getEnuriLink());
         Item findItem = itemService.findOne(id);
-        return new UpdateItemResponse(id, findItem.getItemName(), findItem.getItemImg(), findItem.getDetailImg());
+        return new UpdateItemResponse(id, findItem.getItemName(), findItem.getItemImg(), findItem.getDetailImg(), findItem.getReviewClassCode(), findItem.getEnuriLink());
     }
 
     @Data
@@ -57,6 +59,8 @@ public class ItemApiController {
         private String itemName;
         private String itemImg;
         private String detailImg;
+        private String reviewClassCode;
+        private String enuriLink;
     }
 
     @Data
@@ -66,6 +70,8 @@ public class ItemApiController {
         private String itemName;
         private String itemImg;
         private String detailImg;
+        private String reviewClassCode;
+        private String enuriLink;
     }
 
     //==Item 조회 API==//
@@ -73,7 +79,7 @@ public class ItemApiController {
     public Result findAll(){
         List<Item> findItems = itemService.findItems();
         List<ItemDto> collect = findItems.stream()
-                .map(i -> new ItemDto(i.getId(), i.getItemName(), i.getItemImg(), i.getDetailImg()))
+                .map(i -> new ItemDto(i.getId(), i.getItemName(), i.getItemImg(), i.getDetailImg(), i.getReviewClassCode(), i.getEnuriLink()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -85,6 +91,8 @@ public class ItemApiController {
         private String itemName;
         private String itemImg;
         private String detailImg;
+        private String reviewClassCode;
+        private String enuriLink;
 
     }
 

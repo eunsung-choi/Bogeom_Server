@@ -19,7 +19,7 @@ public class MarketApiController {
     //==Market 저장 API==//
     @PostMapping("/api/markets")
     public CreateMarketResponse saveMarket(@RequestBody @Valid CreateMarketRequest request) {
-        Long marketId = marketService.saveMarket(request.getItemId(), request.getName(), request.getPrice());
+        Long marketId = marketService.saveMarket(request.getItemId(), request.getName(), request.getCode(), request.getLogo(), request.getPrice(), request.getDeliverFee(), request.getLink());
         return new CreateMarketResponse(marketId);
     }
 
@@ -27,12 +27,20 @@ public class MarketApiController {
     static class CreateMarketRequest {
         private Long itemId;
         private String name;
+        private Long code;
+        private String logo;
         private Long price;
+        private int deliverFee;
+        private String link;
 
-        public CreateMarketRequest(Long itemId, String name, Long price) {
+        public CreateMarketRequest(Long itemId, String name, Long code, String logo, Long price, int deliverFee, String link) {
             this.itemId = itemId;
             this.name = name;
+            this.code = code;
+            this.logo = logo;
             this.price = price;
+            this.deliverFee = deliverFee;
+            this.link = link;
         }
     }
 
@@ -50,15 +58,19 @@ public class MarketApiController {
     public UpdateMarketResponse updateMarket(
             @PathVariable("id") Long id,
             @RequestBody @Valid UpdateMarketRequest request) {
-        marketService.updateMarket(id, request.getName(), request.getPrice());
+        marketService.updateMarket(id, request.getName(), request.getCode(), request.getLogo(), request.getPrice(), request.getDeliverFee(), request.getLink());
         Market findMarket = marketService.findOne(id);
-        return new UpdateMarketResponse(id, findMarket.getMarketName(), findMarket.getMarketPrice());
+        return new UpdateMarketResponse(id, findMarket.getMarketName(), findMarket.getMarketCode(), findMarket.getMarketLogo(), findMarket.getMarketPrice(), findMarket.getMarketDeliverFee(), findMarket.getMarketLink());
     }
 
     @Data
     static class UpdateMarketRequest {
         private String name;
+        private Long code;
+        private String logo;
         private Long price;
+        private int deliverFee;
+        private String link;
     }
 
     @Data
@@ -66,7 +78,11 @@ public class MarketApiController {
     static class UpdateMarketResponse {
         private Long marketId;
         private String name;
+        private Long code;
+        private String logo;
         private Long price;
+        private int DeliverFee;
+        private String link;
     }
 
 

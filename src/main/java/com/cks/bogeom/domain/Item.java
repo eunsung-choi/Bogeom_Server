@@ -29,10 +29,12 @@ public class Item {
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<Market> markets = new ArrayList<>();
 
-    private String detailImg;
-    private String itemImg;
     @Column(length = 100)
     private String itemName;
+    private String itemImg;
+    private String detailImg;
+    private String reviewClassCode; //리뷰 작성, 수정 시 필요
+    private String enuriLink; //아이템 링크
 
     public Item(String itemName) {
         this.itemName = itemName;
@@ -57,31 +59,5 @@ public class Item {
 
     public Item(){
     }
-//
-//    @Builder
-//    public Item(Long id,String itemName,String itemImg, String detailImg){
-//        this.id=id;
-//        this.itemName=itemName;
-//        this.itemImg=itemImg;
-//        this.detailImg=detailImg;
-//    }
-
-
-//    //==연관관계 메서드==//
-//
-//    public void addReview(Review review) {
-//        reviews.add(review);
-//        review.setItem(this);
-//    }
-
-//    public void addMarket(Market market) {
-//        markets.add(market);
-//        market.setItem(this);
-//    }
-//
-
-
-
-
 
 }
