@@ -21,7 +21,7 @@ public class ReviewApiController {
     //==Review 저장 API==//
     @PostMapping("/api/reviews")
     public CreateReviewResponse saveReview(@RequestBody @Valid CreateReviewRequest request) {
-        Long reviewId = reviewService.makeReview(request.getItemId(), request.reviewContent, request.getReviewRate());
+        Long reviewId = reviewService.makeReview(request.getItemId(), request.getReviewContent(), request.getReviewRate());
         return new CreateReviewResponse(reviewId);
     }
 
