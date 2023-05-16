@@ -17,20 +17,15 @@ public class MarketService {
     private final MarketRepository marketRepository;
     private final ItemRepository itemRepository;
 
-//    @Transactional
-//    public void saveMarket(Market market) {
-//        // 마켓 저장
-//        marketRepository.save(market);
-//    }
-
     //테스트시에만 Long으로 바꿈
     @Transactional
-    public Long saveMarket(Long itemId, String marketName, Long marketPrice) {
+    public Long saveMarket(Long itemId, String marketName, Long marketCode, String marketLogo,
+                           Long marketPrice, int marketDeliverFee, String marketLink) {
         //엔티티 조회
         Item item = itemRepository.findOne(itemId);
 
         //마켓 생성
-        Market market = Market.createMarket(item, marketName, marketPrice);
+        Market market = Market.createMarket(item, marketName, marketCode, marketLogo,marketPrice, marketDeliverFee, marketLink);
 
         // 마켓 저장
         marketRepository.save(market);
@@ -39,11 +34,16 @@ public class MarketService {
     }
 
     @Transactional
-    public void updateMarket(Long marketId, String marketName, Long marketPrice){
+    public void updateMarket(Long marketId, String marketName, Long marketCode, String marketLogo,
+                             Long marketPrice, int marketDeliverFee, String marketLink){
         Market findMarket = marketRepository.findOne(marketId);
         //값 변경
         findMarket.setMarketName(marketName);
+        findMarket.setMarketCode(marketCode);
+        findMarket.setMarketLogo(marketLogo);
         findMarket.setMarketPrice(marketPrice);
+        findMarket.setMarketDeliverFee(marketDeliverFee);
+        findMarket.setMarketLink(marketLink);
     }
 
     public List<Market> findMarkets(){

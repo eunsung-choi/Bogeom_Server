@@ -41,7 +41,7 @@ public class ItemRepositoryTest {
 //        item.setId(1L);
 
         //when(테스트를 할 영역)
-        Long saveId = itemService.saveItem("카레", null, null);
+        Long saveId = itemService.saveItem("카레", null, null, "222", "dd");
 
         //then(테스트 이후 예상 결과와 실제 결과를 확인하는 영역)
 //        assertEquals(item, itemRepository.findOne(saveId));
@@ -56,6 +56,8 @@ public class ItemRepositoryTest {
         item.setItemName("너구리");
         item.setItemImg("1111");
         item.setDetailImg("2222");
+        item.setReviewClassCode("123");
+        item.setEnuriLink("http//www");
 
         //when
         List<Item> itemList = itemRepository.findAll();

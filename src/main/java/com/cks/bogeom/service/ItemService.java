@@ -21,19 +21,23 @@ public class ItemService {
     private final ItemRepository itemRepository;
 
     @Transactional
-    public void update(Long itemId, String itemName, String img, String dImg){
+    public void update(Long itemId, String itemName, String img, String dImg, String reviewClassCode, String enuriLink){
         Item item = itemRepository.findOne(itemId);
         item.setItemName(itemName);
         item.setItemImg(img);
         item.setDetailImg(dImg);
+        item.setReviewClassCode(reviewClassCode);
+        item.setEnuriLink(enuriLink);
     }
 
     @Transactional
-    public Long saveItem(String itemName, String itemImg,String detailImg) {
+    public Long saveItem(String itemName, String itemImg, String detailImg, String reviewClassCode, String enuriLink) {
         Item item = new Item();
         item.setItemName(itemName);
         item.setItemImg(itemImg);
         item.setDetailImg(detailImg);
+        item.setReviewClassCode(reviewClassCode);
+        item.setEnuriLink(enuriLink);
         //repo에 저장
         itemRepository.save(item);
         return item.getId();
@@ -46,14 +50,6 @@ public class ItemService {
     /**
      * 상품등록
      */
-//    @Transactional
-//    public Long Item(Long marketId, Long reviewId){
-//        //엔티티 조회
-//        Market market = marketRepository.findOne(marketId);
-//        Review review = reviewRepository.findOne(reviewId);
-//
-//        Item item = Item.createItem(reviewList, markets);
-//    }
 
     public Item findOne(Long itemId) {
         return itemRepository.findOne(itemId);

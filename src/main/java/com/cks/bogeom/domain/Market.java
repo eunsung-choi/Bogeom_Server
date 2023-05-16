@@ -24,8 +24,12 @@ public class Market {
     private Item item;
 
     private String marketName; //판매점 이름
+    private Long marketCode; //마켓 크롤링 코드
+    private String marketLogo; //마켓 링크
 
     private Long marketPrice; //판매가격
+    private int marketDeliverFee;
+    private String marketLink;
 
     public Market(){
 
@@ -37,25 +41,18 @@ public class Market {
         item.getMarkets().add(this); //market 추가
     }
 
-//    public Market(String marketName){
-//        this.marketName = marketName;
-//    }
-//
-//    public Market(String marketName, Long marketPrice, Item item){
-//        this.marketName = marketName;
-//        this.marketPrice = marketPrice;
-//        if (item != null){
-//            setItem(item);
-//        }
-//    }
-
     //==생성 메서드==//
-    public static Market createMarket(Item item, String marketName, Long marketPrice) {
+    public static Market createMarket(Item item, String marketName, Long marketCode, String marketLogo,
+                                      Long marketPrice, int marketDeliverFee, String marketLink) {
 
         Market market = new Market();
         market.setItem(item);
         market.setMarketName(marketName);
+        market.setMarketCode(marketCode);
+        market.setMarketLogo(marketLogo);
         market.setMarketPrice(marketPrice);
+        market.setMarketDeliverFee(marketDeliverFee);
+        market.setMarketLink(marketLink);
 
         return market;
     }
