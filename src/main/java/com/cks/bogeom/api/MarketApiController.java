@@ -91,7 +91,7 @@ public class MarketApiController {
     public Result findAll(){
         List<Market> findMarkets = marketService.findMarkets();
         List<MarketDto> collect = findMarkets.stream()
-                .map(m -> new MarketDto(m.getMarketName()))
+                .map(m -> new MarketDto(m.getMarketName(), m.getMarketCode(), m.getMarketLogo(), m.getMarketPrice(), m.getMarketDeliverFee(), m.getMarketLink()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -100,6 +100,11 @@ public class MarketApiController {
     @AllArgsConstructor
     static class MarketDto{
         private String name;
+        private Long code;
+        private String logo;
+        private Long price;
+        private int DeliverFee;
+        private String link;
     }
 
     @Data

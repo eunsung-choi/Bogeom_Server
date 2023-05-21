@@ -63,5 +63,11 @@ public class ReviewRepository {
         return null;
     }
 
+    //item id로 review 조회
+    public List<Review> findByItemId(Long itemId){
+        return em.createQuery("select r from Review r where r.item.id = :itemId", Review.class)
+                .setParameter("itemId", itemId)
+                .getResultList();
+    }
 }
 

@@ -35,7 +35,7 @@ public class ItemServiceTest {
 //        item.setItemName("너구리");
 
         //when
-        Long itemId = itemService.saveItem("너구리", "11", "22", "234", "dd");
+        Long itemId = itemService.saveItem("짜장라면", "23", "20", "114", "ddsdf");
 
         //then
         Item getItemR = itemRepository.findOne(itemId);

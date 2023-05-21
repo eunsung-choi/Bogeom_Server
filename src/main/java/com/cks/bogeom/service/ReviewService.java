@@ -60,5 +60,9 @@ public class ReviewService {
         return reviewRepository.findAllByString(reviewSearch);
     }
 
+    //itemId로 review 조회
+    public List<Review> findReviewsByItemId(Long itemId) {
+        return reviewRepository.findByItemId(itemId);
+    }
 
 }
