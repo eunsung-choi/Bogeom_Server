@@ -33,7 +33,7 @@ public class ReviewServiceTest {
         Item item = createItem();
 
         //when
-        Long reviewId = reviewService.makeReview(item.getId(), "맛있음", 5L);
+        Long reviewId = reviewService.makeReview(item.getId(), "맛있음", 5L, 0L,0L,0L,0L,0L,0L,0L,0L,0L);
 
         //then
         Review getReview = reviewRepository.findOne(reviewId);

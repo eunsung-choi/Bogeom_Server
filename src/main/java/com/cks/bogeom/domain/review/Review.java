@@ -29,14 +29,39 @@ public class Review {
     private LocalDateTime reviewDate; //리뷰 날짜
     private Long reviewRate; //리뷰 별점
 
+    //리뷰 속성
+    private Long scent; //향
+    private Long clean; //세정력
+    private Long stimulation; //자극도
+
+    private Long spicy;
+    private Long amount;
+    private Long taste;
+    private Long sugar;
+
+    private Long solidity;
+    private Long afterFeel;
+
+
+
     //==생성 메서드==//
-    public static Review createReview(Item item, String reviewContent, Long reviewRate){
+    public static Review createReview(Item item, String reviewContent, Long reviewRate, Long scent, Long clean, Long stimulation,
+                                      Long spicy, Long amount, Long taste, Long sugar,
+                                      Long solidity, Long afterFeel){
         Review review = new Review();
         review.setItem(item);
         review.setReviewContent(reviewContent);
         review.setReviewDate(LocalDateTime.now());
         review.setReviewRate(reviewRate);
-
+        review.setScent(scent);
+        review.setClean(clean);
+        review.setStimulation(stimulation);
+        review.setSpicy(spicy);
+        review.setAmount(amount);
+        review.setTaste(taste);
+        review.setSugar(sugar);
+        review.setSolidity(solidity);
+        review.setAfterFeel(afterFeel);
         return review;
     }
 
