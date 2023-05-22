@@ -54,4 +54,9 @@ public class MarketService {
         //마켓 엔티티 조회
         return marketRepository.findOne(marketId);
     }
+
+    public List<Market> findMarketsByItemId(Long itemId) {
+        //마켓 엔티티 조회
+        return marketRepository.findByItemId(itemId);
+    }
 }

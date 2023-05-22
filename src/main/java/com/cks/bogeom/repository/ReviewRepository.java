@@ -59,9 +59,27 @@ public class ReviewRepository {
         return query.getResultList();
     }
 
+    //item id로 review 조회
     public List<Review> findById(Long itemId) {
-        return null;
+        String jpql = "select r from Review r join r.item i";
+        boolean isFirstCondition = true;
+
+        //Item id 검색
+
+            if (isFirstCondition) {
+                jpql+= " where";
+                isFirstCondition = false;
+            } else {
+                jpql += " and";
+            }
+            jpql += " i.id like :id";
+        TypedQuery<Review> query = em.createQuery(jpql, Review.class).setMaxResults(1000);
+
+        query = query.setParameter("id", itemId);
+        return query.getResultList();
+
     }
+
 
 }
 

@@ -1,5 +1,6 @@
 package com.cks.bogeom.repository;
 
+import com.cks.bogeom.domain.Item;
 import com.cks.bogeom.domain.Market;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
@@ -31,6 +32,11 @@ public class MarketRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
-
+    //item id로 market 조회
+    public List<Market> findByItemId(Long itemId){
+        return em.createQuery("select m from Market m where m.item.id = :itemId", Market.class)
+                .setParameter("itemId", itemId)
+                .getResultList();
+    }
 
 }

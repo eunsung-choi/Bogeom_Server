@@ -41,7 +41,7 @@ public class ItemRepositoryTest {
 //        item.setId(1L);
 
         //when(테스트를 할 영역)
-        Long saveId = itemService.saveItem("카레", null, null, "222", "dd");
+        Long saveId = itemService.saveItem("카레", null, null, "222", "dd", "Food");
 
         //then(테스트 이후 예상 결과와 실제 결과를 확인하는 영역)
 //        assertEquals(item, itemRepository.findOne(saveId));
@@ -86,5 +86,6 @@ public class ItemRepositoryTest {
         }
 
     }
+
 
 }

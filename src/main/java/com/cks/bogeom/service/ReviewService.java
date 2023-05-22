@@ -27,13 +27,16 @@ public class ReviewService {
     }
 
     @Transactional
-    public Long makeReview(Long itemId, String content, Long rate) { //리뷰 생성 후 저장
+    public Long makeReview(Long itemId, String content, Long rate, Long scent,
+                           Long clean, Long stimulation, Long spicy, Long amount,
+                           Long taste, Long sugar, Long solidity, Long afterFeel) { //리뷰 생성 후 저장
 
         //엔티티 조회
         Item item = itemRepository.findOne(itemId);
 
         //리뷰 생성
-        Review review = Review.createReview(item, content, rate);
+        Review review = Review.createReview(item, content, rate, scent, clean, stimulation, spicy,
+                amount, taste, sugar, solidity, afterFeel);
 
         //리뷰 저장
         reviewRepository.save(review);
@@ -60,5 +63,8 @@ public class ReviewService {
         return reviewRepository.findAllByString(reviewSearch);
     }
 
-
+    //itemId로 review 조회
+    public List<Review> findReviewsByItemId(Long itemId) {
+        return reviewRepository.findById(itemId);
+    }
 }

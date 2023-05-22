@@ -19,14 +19,5 @@ public class Daily extends Review{
     private Long clean; //세정력
     private Long stimulation; //자극도
 
-//    @Builder
-//    public Daily(Long id, Item item, String reviewContent, int reviewDate, Long reviewRate,
-//                 Long scent, Long clean, Long stimulation){
-//        super(id, item, reviewContent, reviewDate, reviewRate);
-//        this.scent = scent;
-//        this.clean = clean;
-//        this.stimulation = stimulation;
-//
-//    }
 
 }

@@ -36,6 +36,8 @@ public class Item {
     private String reviewClassCode; //리뷰 작성, 수정 시 필요
     private String enuriLink; //아이템 링크
 
+    private String categoryName;
+
     public Item(String itemName) {
         this.itemName = itemName;
     }

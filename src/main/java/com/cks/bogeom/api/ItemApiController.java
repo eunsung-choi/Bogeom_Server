@@ -1,9 +1,19 @@
 package com.cks.bogeom.api;
 
+import com.cks.bogeom.domain.Category;
 import com.cks.bogeom.domain.Item;
+import com.cks.bogeom.domain.Market;
+import com.cks.bogeom.domain.review.Daily;
+import com.cks.bogeom.domain.review.Food;
+import com.cks.bogeom.domain.review.Kitchen;
+import com.cks.bogeom.domain.review.Review;
 import com.cks.bogeom.service.ItemService;
+import com.cks.bogeom.service.MarketService;
+import com.cks.bogeom.service.ReviewService;
+import com.mysql.cj.log.Log;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,11 +27,13 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ItemApiController {
     private final ItemService itemService;
+    private final ReviewService reviewService;
+    private final MarketService marketService;
 
     //==Item 저장 API==//
     @PostMapping("/api/items")
     public CreateItemResponse saveItem(@RequestBody @Valid CreateItemRequest request) {
-        Long itemId = itemService.saveItem(request.getItemName(), request.getItemImg(), request.getDetailImg(), request.getReviewClassCode(), request.getEnuriLink());
+        Long itemId = itemService.saveItem(request.getItemName(), request.getItemImg(), request.getDetailImg(), request.getReviewClassCode(), request.getEnuriLink(), request.getCategoryName());
         return new CreateItemResponse(itemId);
     }
 
@@ -33,6 +45,7 @@ public class ItemApiController {
         private String detailImg;
         private String reviewClassCode;
         private String enuriLink;
+        private String categoryName;
     }
 
     @Data
@@ -74,12 +87,13 @@ public class ItemApiController {
         private String enuriLink;
     }
 
-    //==Item 조회 API==//
+    //==Item 전체 조회 API==//
     @GetMapping("/api/items")
     public Result findAll(){
         List<Item> findItems = itemService.findItems();
+
         List<ItemDto> collect = findItems.stream()
-                .map(i -> new ItemDto(i.getId(), i.getItemName(), i.getItemImg(), i.getDetailImg(), i.getReviewClassCode(), i.getEnuriLink()))
+                .map(i -> new ItemDto(i.getId(), i.getItemName(), i.getItemImg(), i.getDetailImg(), i.getReviewClassCode(), i.getEnuriLink(), i.getCategoryName()))
                 .collect(Collectors.toList());
         return new Result(collect);
     }
@@ -93,12 +107,148 @@ public class ItemApiController {
         private String detailImg;
         private String reviewClassCode;
         private String enuriLink;
-
+        private String categoryName;
     }
 
     @Data
     @AllArgsConstructor
     static class Result<T>{
         private T data;
+    }
+
+    //==Item 단품 조회 API==//
+    @GetMapping("/api/items/{id}")
+    public OneItemResult findOne( @PathVariable("id") Long id){
+        //itemInfo 부분
+        Item findItem = itemService.findOne(id);
+        OneItemDto oneItemDto = new OneItemDto(findItem.getId(), findItem.getItemName(), findItem.getItemImg(), findItem.getDetailImg());
+
+        //item_online_price 부분
+        List<Market> findMarkets = marketService.findMarketsByItemId(id); //itemId로 관련 market 찾기
+        List<OneMarketDto> itemMarketDto = findMarkets.stream()
+                .map(m -> new OneMarketDto(m.getMarketName(), m.getMarketCode(), m.getMarketLogo(), m.getMarketPrice(), m.getMarketDeliverFee(), m.getMarketLink()))
+                .collect(Collectors.toList());
+
+        //itemReview 부분
+        //Review들을 불러와서 값을 업데이트하는 과정
+        long totalScent=0, totalClean=0, totalStimulation=0, totalSpicy=0, totalAmount=0, totalTaste=0, totalSugar=0, totalSolidity=0, totalAfterFeel=0;
+        long totalReviewRate=0;
+        List<Review> findReviews = reviewService.findReviewsByItemId(id);
+        String categoryName = findItem.getCategoryName();
+        System.out.println("categoryName : "+categoryName);
+        System.out.println("findReviews : "+findReviews.stream().map(r -> r.getReviewContent()).collect(Collectors.toList()));
+
+        for (Review review : findReviews) { //총 합 계산
+            System.out.println(review.getReviewContent());
+            totalReviewRate += review.getReviewRate();
+            if(categoryName.equals("Daily")){ //Daily일 경우
+                System.out.println("Daily");
+                totalScent += (review.getScent() != null) ? review.getScent() : 0;
+                totalClean += (review.getClean() != null) ? review.getClean() : 0;
+                totalStimulation += (review.getStimulation() != null) ? review.getStimulation() : 0;
+            }
+            else if(categoryName.equals("Food")){ //Food일 경우
+                System.out.println("Food");
+                totalSpicy += (review.getSpicy() != null) ? review.getSpicy() : 0;
+                totalAmount += (review.getAmount() != null) ? review.getAmount() : 0;
+                totalTaste += (review.getTaste() != null) ? review.getTaste() : 0;
+                totalSugar += (review.getSugar() != null) ? review.getSugar() : 0;
+            }
+            else if(categoryName.equals("Kitchen")){ //Kitchen일 경우
+                System.out.println("Kitchen");
+                totalSolidity += (review.getSolidity() != null) ? review.getSolidity() : 0;
+                totalAfterFeel += (review.getAfterFeel() != null) ? review.getAfterFeel() : 0;
+            }
+            else{}
+        }
+        //평균 구하기
+        int n = findReviews.size();
+        if(n!=0){
+            totalReviewRate /= n;
+            totalScent /= n;
+            totalClean /= n;
+            totalStimulation /= n;
+            totalSpicy /= n;
+            totalAmount /= n;
+            totalTaste /= n;
+            totalSugar /= n;
+            totalSolidity /= n;
+            totalAfterFeel /= n;
+        }
+
+//        findItem.setReviewClassCode(reviewClassCode); //reviewClassCode 설정
+
+        //dto 만들기
+        if(categoryName.equals("Daily")){ //Daily일 경우
+            DailyDto dailyDto = new DailyDto(totalReviewRate, totalScent, totalClean, totalStimulation);
+            return new OneItemResult(oneItemDto, dailyDto, itemMarketDto);
+        }
+        else if(categoryName.equals("Food")){ //Food일 경우
+            System.out.println("Food DTO");
+            FoodDto foodDto = new FoodDto(totalReviewRate, totalSpicy, totalAmount, totalTaste, totalSugar);
+            return new OneItemResult(oneItemDto, foodDto, itemMarketDto);
+        }
+        else if(categoryName.equals("Kitchen")){ //Kitchen일 경우
+            KitchenDto kitchenDto = new KitchenDto(totalReviewRate, totalSolidity, totalAfterFeel);
+            return new OneItemResult(oneItemDto, kitchenDto, itemMarketDto);
+        }
+        else{
+
+        }
+
+        return new OneItemResult(oneItemDto, null, itemMarketDto);
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class OneItemDto{
+        private Long itemId;
+        private String itemName;
+        private String itemImg;
+        private String detailImg;
+
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class DailyDto{
+        private Long reviewRate;
+        private Long totalScent;
+        private Long totalClean;
+        private Long totalStimulation;
+    }
+    @Data
+    @AllArgsConstructor
+    static class FoodDto{
+        private Long reviewRate;
+        private Long totalSpicy;
+        private Long totalAmount;
+        private Long totalTaste;
+        private Long totalSugar;
+    }
+    @Data
+    @AllArgsConstructor
+    static class KitchenDto{
+        private Long reviewRate;
+        private Long totalSolidity;
+        private Long totalAfterFeel;
+    }
+    @Data
+    @AllArgsConstructor
+    static class OneMarketDto{
+        private String marketName;
+        private Long marketCode;
+        private String marketLogo;
+        private Long marketPrice;
+        private int DeliverFee;
+        private String marketLink;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class OneItemResult<T>{
+        private T itemInfo;
+        private T itemReview;
+        private T itemOnlinePrice;
     }
 }

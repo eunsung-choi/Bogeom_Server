@@ -1,5 +1,6 @@
 package com.cks.bogeom.service;
 
+import com.cks.bogeom.domain.Category;
 import com.cks.bogeom.domain.Item;
 import com.cks.bogeom.domain.Market;
 import com.cks.bogeom.domain.review.Review;
@@ -12,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.yaml.snakeyaml.error.Mark;
 
 import javax.persistence.Column;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,13 +33,14 @@ public class ItemService {
     }
 
     @Transactional
-    public Long saveItem(String itemName, String itemImg, String detailImg, String reviewClassCode, String enuriLink) {
+    public Long saveItem(String itemName, String itemImg, String detailImg, String reviewClassCode, String enuriLink, String categoryName) {
         Item item = new Item();
         item.setItemName(itemName);
         item.setItemImg(itemImg);
         item.setDetailImg(detailImg);
         item.setReviewClassCode(reviewClassCode);
         item.setEnuriLink(enuriLink);
+        item.setCategoryName(categoryName);
         //repo에 저장
         itemRepository.save(item);
         return item.getId();

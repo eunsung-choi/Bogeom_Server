@@ -21,7 +21,9 @@ public class ReviewApiController {
     //==Review 저장 API==//
     @PostMapping("/api/reviews")
     public CreateReviewResponse saveReview(@RequestBody @Valid CreateReviewRequest request) {
-        Long reviewId = reviewService.makeReview(request.getItemId(), request.getReviewContent(), request.getReviewRate());
+        Long reviewId = reviewService.makeReview(request.getItemId(), request.getReviewContent(), request.getReviewRate(),
+                request.getScent(), request.getClean(), request.getStimulation(), request.getSpicy(),
+                request.getAmount(), request.getTaste(), request.getSugar(), request.getSolidity(), request.getAfterFeel());
         return new CreateReviewResponse(reviewId);
     }
 
@@ -30,6 +32,18 @@ public class ReviewApiController {
         private Long itemId;
         private String reviewContent;
         private Long reviewRate; //리뷰 별점
+
+        private Long scent;
+        private Long clean;
+        private Long stimulation;
+
+        private Long spicy;
+        private Long amount;
+        private Long taste;
+        private Long sugar;
+
+        private Long solidity;
+        private Long afterFeel;
     }
 
     @Data
