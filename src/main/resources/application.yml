@@ -1,16 +1,17 @@
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/dms
-    username: newuser
+    url: --
+    username: admin
     password: Toast1234!
 
 
   jpa:
+    #database-platform: org.hibernate.dialect.MySQLDialect
     open-in-view: true
     hibernate:
       #      개발초기단계에는 create를 사용하고 테스트 서버에서는 update를 사용해야함
-      ddl-auto: none
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
