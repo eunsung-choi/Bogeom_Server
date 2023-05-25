@@ -34,7 +34,7 @@ public class MarketServiceTest {
         Item item = createItem();
 
         //when
-        Long marketId = marketService.saveMarket(7L, "지마켓",1000L,"ddd",2000L,3000,"dddd");
+        Long marketId = marketService.saveMarket(item.getId(), "지마켓",1000L,"ddd",2000L,3000,"dddd");
 
         //then
         Market getMarket = marketRepository.findOne(marketId);
