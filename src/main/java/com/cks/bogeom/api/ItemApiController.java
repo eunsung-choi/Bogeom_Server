@@ -3,9 +3,6 @@ package com.cks.bogeom.api;
 import com.cks.bogeom.domain.Category;
 import com.cks.bogeom.domain.Item;
 import com.cks.bogeom.domain.Market;
-import com.cks.bogeom.domain.review.Daily;
-import com.cks.bogeom.domain.review.Food;
-import com.cks.bogeom.domain.review.Kitchen;
 import com.cks.bogeom.domain.review.Review;
 import com.cks.bogeom.service.ItemService;
 import com.cks.bogeom.service.MarketService;
@@ -13,13 +10,10 @@ import com.cks.bogeom.service.ReviewService;
 import com.mysql.cj.log.Log;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.Column;
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -141,25 +135,15 @@ public class ItemApiController {
         for (Review review : findReviews) { //총 합 계산
             System.out.println(review.getReviewContent());
             totalReviewRate += review.getReviewRate();
-            if(categoryName.equals("Daily")){ //Daily일 경우
-                System.out.println("Daily");
                 totalScent += (review.getScent() != null) ? review.getScent() : 0;
                 totalClean += (review.getClean() != null) ? review.getClean() : 0;
                 totalStimulation += (review.getStimulation() != null) ? review.getStimulation() : 0;
-            }
-            else if(categoryName.equals("Food")){ //Food일 경우
-                System.out.println("Food");
                 totalSpicy += (review.getSpicy() != null) ? review.getSpicy() : 0;
                 totalAmount += (review.getAmount() != null) ? review.getAmount() : 0;
                 totalTaste += (review.getTaste() != null) ? review.getTaste() : 0;
                 totalSugar += (review.getSugar() != null) ? review.getSugar() : 0;
-            }
-            else if(categoryName.equals("Kitchen")){ //Kitchen일 경우
-                System.out.println("Kitchen");
                 totalSolidity += (review.getSolidity() != null) ? review.getSolidity() : 0;
                 totalAfterFeel += (review.getAfterFeel() != null) ? review.getAfterFeel() : 0;
-            }
-            else{}
         }
         //평균 구하기
         int n = findReviews.size();
@@ -176,27 +160,9 @@ public class ItemApiController {
             totalAfterFeel /= n;
         }
 
-//        findItem.setReviewClassCode(reviewClassCode); //reviewClassCode 설정
-
         //dto 만들기
-        if(categoryName.equals("Daily")){ //Daily일 경우
-            DailyDto dailyDto = new DailyDto(totalReviewRate, totalScent, totalClean, totalStimulation);
-            return new OneItemResult(oneItemDto, dailyDto, itemMarketDto);
-        }
-        else if(categoryName.equals("Food")){ //Food일 경우
-            System.out.println("Food DTO");
-            FoodDto foodDto = new FoodDto(totalReviewRate, totalSpicy, totalAmount, totalTaste, totalSugar);
-            return new OneItemResult(oneItemDto, foodDto, itemMarketDto);
-        }
-        else if(categoryName.equals("Kitchen")){ //Kitchen일 경우
-            KitchenDto kitchenDto = new KitchenDto(totalReviewRate, totalSolidity, totalAfterFeel);
-            return new OneItemResult(oneItemDto, kitchenDto, itemMarketDto);
-        }
-        else{
-
-        }
-
-        return new OneItemResult(oneItemDto, null, itemMarketDto);
+        ReviewItemDto reviewItemDto = new ReviewItemDto(totalReviewRate, totalScent, totalClean, totalStimulation,totalSpicy, totalAmount, totalTaste, totalSugar,totalSolidity, totalAfterFeel);
+            return new OneItemResult(oneItemDto, reviewItemDto, itemMarketDto);
     }
 
     @Data
@@ -208,31 +174,45 @@ public class ItemApiController {
         private String detailImg;
 
     }
-
     @Data
     @AllArgsConstructor
-    static class DailyDto{
+    static class ReviewItemDto{
         private Long reviewRate;
         private Long totalScent;
         private Long totalClean;
         private Long totalStimulation;
-    }
-    @Data
-    @AllArgsConstructor
-    static class FoodDto{
-        private Long reviewRate;
         private Long totalSpicy;
         private Long totalAmount;
         private Long totalTaste;
         private Long totalSugar;
-    }
-    @Data
-    @AllArgsConstructor
-    static class KitchenDto{
-        private Long reviewRate;
         private Long totalSolidity;
         private Long totalAfterFeel;
     }
+//    @Data
+//    @AllArgsConstructor
+//    static class DailyDto{
+//        private Long reviewRate;
+//        private Long totalScent;
+//        private Long totalClean;
+//        private Long totalStimulation;
+//
+//    }
+//    @Data
+//    @AllArgsConstructor
+//    static class FoodDto{
+//        private Long reviewRate;
+//        private Long totalSpicy;
+//        private Long totalAmount;
+//        private Long totalTaste;
+//        private Long totalSugar;
+//    }
+//    @Data
+//    @AllArgsConstructor
+//    static class KitchenDto{
+//        private Long reviewRate;
+//        private Long totalSolidity;
+//        private Long totalAfterFeel;
+//    }
     @Data
     @AllArgsConstructor
     static class OneMarketDto{
