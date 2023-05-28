@@ -37,18 +37,16 @@
 //    }
 //
 //    @RequestMapping(value = "/proxyUpload", method = RequestMethod.POST)
-//    public ResponseEntity<?> uploadImages(List<MultipartFile> files) throws IOException {
+//    public ResponseEntity<?> uploadImages(MultipartFile file) throws IOException {
 //
 //        LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<>();
 //        JsonNode response;
 //        HttpStatus httpStatus = HttpStatus.CREATED;
 //
 //        try {
-//            for (MultipartFile file : files) {
-//                if (!file.isEmpty()) {
+//            if (!file.isEmpty()) {
 ////                    map.add("files", new MultipartInputStreamFileResource(file.getInputStream(), file.getOriginalFilename()));
-//                    map.add("files", file.getResource());
-//                }
+//                map.add("file", file.getResource());
 //            }
 //            //map.add("stringValue", "string!"); // 문자열도 가능
 //            HttpHeaders headers = new HttpHeaders();
@@ -71,54 +69,24 @@
 //
 //        return new ResponseEntity<>(response, httpStatus);
 //    }
-//    class MultipartInputStreamFileResource extends InputStreamResource {
 //
-//        private final String filename;
-//
-//        MultipartInputStreamFileResource(InputStream inputStream, String filename) {
-//            super(inputStream);
-//            this.filename = filename;
-//        }
-//
-//        @Override
-//        public String getFilename() {
-//            return this.filename;
-//        }
-//
-//        @Override
-//        public long contentLength() throws IOException {
-//            return -1; // we do not want to generally read the whole stream into memory ...
-//        }
-//    }
 //    @RequestMapping("/test_rest_template_get") //get
 //    @ResponseBody
-//    public ResponseEntity<HashMap<String, String>> test2(List<MultipartFile> files) {
-//        files.forEach(file -> {
-//            System.out.println(file.getContentType());
-//            System.out.println(file.getOriginalFilename());
-//            try {
-//                System.out.println(file.getBytes());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            System.out.println(file.getSize());
-//            System.out.println(file.getClass());
-//            System.out.println(file.getResource());
-//            System.out.println(file.getName());
-//            try {
-//                System.out.println(file.getInputStream());
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//        });
+//    public ResponseEntity<?> test2(MultipartFile file) throws IOException{
+//        System.out.println(file.getContentType());
+//        System.out.println(file.getOriginalFilename());
 //
 //        HttpHeaders headers = new HttpHeaders();
+//        headers.add("Content-Type", file.getContentType());
+//        headers.add("Content-Length",String.valueOf(file.getBytes().length));
 //
-//        HashMap<String, String> resultMap = new HashMap<>();
-//        resultMap.put("result", "success");
-//        return ResponseEntity.ok(resultMap);
-////        return ResponseEntity.status(HttpStatus.OK)
-////                .contentType(MediaType.valueOf("image/png"))
-////                .body(ImageUtils.decompressImage(getIma))
+////        HashMap<String, String> resultMap = new HashMap<>();
+////        resultMap.put("result", "success");
+////        return ResponseEntity.ok(resultMap);
+//
+//        byte[] downloadImage = ImageUtils.decompressImage(file.getBytes());
+//        // Trigger the downloadImage method
+//        return new ResponseEntity<byte[]>(file.getBytes(), headers, HttpStatus.OK);
 //    }
+//
 //}

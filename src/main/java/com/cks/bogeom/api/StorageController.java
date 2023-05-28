@@ -2,6 +2,7 @@ package com.cks.bogeom.api;
 
 import com.cks.bogeom.domain.ImageData;
 import com.cks.bogeom.service.StorageService;
+import com.cks.bogeom.utils.ImageUtils;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -25,14 +26,20 @@ public class StorageController {
     // Upload image
     @PostMapping("/image")
     public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
-        String uploadImage = storageService.uploadImage(file); // Save the original file name
 
-        String url = "http://localhost:8080/api/image/" + file.getOriginalFilename();
+        // post에서 이미지 보이게 하기
+        byte[] uploadImage = ImageUtils.compressImage(file.getBytes());
+        byte[] downloadImage = ImageUtils.decompressImage(uploadImage);
 
         // Trigger the downloadImage method
         return ResponseEntity.status(HttpStatus.OK)
-                .contentType(MediaType.TEXT_PLAIN)
-                .body(url);
+                .contentType(MediaType.IMAGE_PNG)
+                .body(downloadImage);
+
+        // 기존 방법
+//        String uploadImage = storageService.uploadImage(file);
+//        return ResponseEntity.status(HttpStatus.OK)
+//                .body(uploadImage);
     }
 
     // Download image
