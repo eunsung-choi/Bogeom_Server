@@ -56,7 +56,7 @@ public class ReviewApiController {
     }
 
     //==Review 수정 API==//
-    @PutMapping("/api/reviews/{id}")
+    @PutMapping("/api/reviews/put/{id}")
     public UpdateReviewResponse updateReview(
             @PathVariable("id") Long id,
             @RequestBody @Valid UpdateReviewRequest request) {
@@ -85,9 +85,23 @@ public class ReviewApiController {
     public Result findAll(){
         List<Review> findReviews = reviewService.findAllReviews();
         List<ReviewDto> collect = findReviews.stream()
-                .map(m -> new ReviewDto(m.getItem().getId(),m.getId(), m.getReviewContent(), m.getReviewDate(), m.getReviewRate()))
+                .map(m -> new ReviewDto(m.getItem().getId(),m.getId(), m.getReviewContent(), m.getReviewDate(), m.getReviewRate(),
+                        m.getScent(), m.getClean(), m.getStimulation(), m.getSpicy(),
+                        m.getAmount(), m.getTaste(), m.getSugar(), m.getSolidity(), m.getAfterFeel()))
                 .collect(Collectors.toList());
         return new Result(collect);
+    }
+
+    //==Review itemId 조회 API==//
+    @GetMapping("/api/reviews/{itemId}")
+    public ItemReviewResult findByItemId(@PathVariable("itemId") Long itemId){
+        List<Review> findReviews = reviewService.findReviewsByItemId(itemId);
+        List<ReviewDto> collect = findReviews.stream()
+                .map(m -> new ReviewDto(m.getItem().getId(),m.getId(), m.getReviewContent(), m.getReviewDate(), m.getReviewRate(),
+                        m.getScent(), m.getClean(), m.getStimulation(), m.getSpicy(),
+                        m.getAmount(), m.getTaste(), m.getSugar(), m.getSolidity(), m.getAfterFeel()))
+                .collect(Collectors.toList());
+        return new ItemReviewResult(itemId, collect);
     }
 
     @Data
@@ -98,11 +112,29 @@ public class ReviewApiController {
         private String reviewContent; //리뷰 내용
         private LocalDateTime reviewDate; //리뷰 날짜
         private Long reviewRate; //리뷰 별점
+
+        private Long scent;
+        private Long clean;
+        private Long stimulation;
+
+        private Long spicy;
+        private Long amount;
+        private Long taste;
+        private Long sugar;
+
+        private Long solidity;
+        private Long afterFeel;
     }
 
     @Data
     @AllArgsConstructor
     static class Result<T>{
         private T data;
+    }
+    @Data
+    @AllArgsConstructor
+    static class ItemReviewResult<T>{
+        private T itemId;
+        private T itemReviews;
     }
 }
