@@ -3,6 +3,7 @@ package com.cks.bogeom.api;
 import com.cks.bogeom.domain.Item;
 import com.cks.bogeom.domain.review.Review;
 import com.cks.bogeom.service.ReviewService;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -106,6 +107,7 @@ public class ReviewApiController {
 
     @Data
     @AllArgsConstructor
+    @JsonInclude(JsonInclude.Include.NON_NULL)
     static class ReviewDto{
         private Long itemId;
         private Long reviewId;
