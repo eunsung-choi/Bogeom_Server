@@ -35,6 +35,15 @@ public class ItemRepository {
                 .setParameter("name", name)
                 .getResultList();
     }
+    public Item findOneByName(String name) {
+        List<Item> items = em.createQuery("select i from Item i where i.itemName = :name", Item.class)
+                .setParameter("name", name)
+                .getResultList();
+        if (!items.isEmpty()) {
+            return items.get(0); // 첫 번째 아이템 반환
+        }
+        return null;
+    }
 
     //item 전부 조회
     public List<Item> findAll(){

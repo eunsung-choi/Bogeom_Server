@@ -90,13 +90,31 @@ public class ReviewApiController {
                         m.getScent(), m.getClean(), m.getStimulation(), m.getSpicy(),
                         m.getAmount(), m.getTaste(), m.getSugar(), m.getSolidity(), m.getAfterFeel()))
                 .collect(Collectors.toList());
+
         return new Result(collect);
     }
 
-    //==Review itemId 조회 API==//
-    @GetMapping("/api/reviews/{itemId}")
-    public ItemReviewResult findByItemId(@PathVariable("itemId") Long itemId){
+//    //==Review itemId 조회 API==//
+//    @GetMapping("/api/reviews/{itemId}")
+//    public ItemReviewResult findByItemId(@PathVariable("itemId") Long itemId){
+//        List<Review> findReviews = reviewService.findReviewsByItemId(itemId);
+//        List<ReviewDto> collect = findReviews.stream()
+//                .map(m -> new ReviewDto(m.getItem().getId(),m.getId(), m.getReviewContent(), m.getReviewDate(), m.getReviewRate(),
+//                        m.getScent(), m.getClean(), m.getStimulation(), m.getSpicy(),
+//                        m.getAmount(), m.getTaste(), m.getSugar(), m.getSolidity(), m.getAfterFeel()))
+//                .collect(Collectors.toList());
+//        return new ItemReviewResult(itemId, collect);
+//    }
+
+    //==Review itemName 조회 API==//
+    @GetMapping("/api/reviews/{itemName}")
+    public ItemReviewResult findByItemName(@PathVariable("itemName") String itemName){
+        Review findReview = reviewService.findReviewByName(itemName);
+        Item id = findReview.getItem();
+        Long itemId = id.getId();
+
         List<Review> findReviews = reviewService.findReviewsByItemId(itemId);
+
         List<ReviewDto> collect = findReviews.stream()
                 .map(m -> new ReviewDto(m.getItem().getId(),m.getId(), m.getReviewContent(), m.getReviewDate(), m.getReviewRate(),
                         m.getScent(), m.getClean(), m.getStimulation(), m.getSpicy(),
@@ -136,6 +154,13 @@ public class ReviewApiController {
     @Data
     @AllArgsConstructor
     static class ItemReviewResult<T>{
+        private T itemId;
+        private T itemReviews;
+    }
+
+    @Data
+    @AllArgsConstructor
+    static class ItemReviewResultName<T>{
         private T itemId;
         private T itemReviews;
     }
