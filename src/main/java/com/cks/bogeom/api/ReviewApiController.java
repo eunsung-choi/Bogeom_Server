@@ -109,7 +109,7 @@ public class ReviewApiController {
     //==Review itemName 조회 API==//
     @GetMapping("/api/reviews/{itemName}")
     public ItemReviewResult findByItemName(@PathVariable("itemName") String itemName){
-        Review findReview = reviewService.findReviewByName(itemName);
+        Review findReview = reviewService.findReviewByItemName(itemName);
         Item id = findReview.getItem();
         Long itemId = id.getId();
 
