@@ -188,7 +188,9 @@ public class ItemApiController {
         private Long totalSolidity;
         private Long totalAfterFeel;
     }
-//    @Data
+
+
+    //    @Data
 //    @AllArgsConstructor
 //    static class DailyDto{
 //        private Long reviewRate;
