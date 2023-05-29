@@ -68,5 +68,9 @@ public class ReviewService {
         return reviewRepository.findById(itemId);
     }
 
+    public List<Review> findReviewsByItemName(String itemName) {return reviewRepository.findByName(itemName);}
+
+    public Review findReviewByName(String itemName){ return reviewRepository.findOneByName(itemName);}
+
 
 }

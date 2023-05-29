@@ -1,5 +1,6 @@
 package com.cks.bogeom.repository;
 
+import com.cks.bogeom.domain.Item;
 import com.cks.bogeom.domain.Market;
 import com.cks.bogeom.domain.review.Review;
 import lombok.RequiredArgsConstructor;
@@ -78,6 +79,36 @@ public class ReviewRepository {
         query = query.setParameter("id", itemId);
         return query.getResultList();
 
+    }
+    //item Name으로 review 조회
+    public List<Review> findByName(String itemName) {
+        String jpql = "select r from Review r join r.item i";
+        boolean isFirstCondition = true;
+
+        //Item id 검색
+
+        if (isFirstCondition) {
+            jpql+= " where";
+            isFirstCondition = false;
+        } else {
+            jpql += " and";
+        }
+        jpql += " i.name like :itemName";
+        TypedQuery<Review> query = em.createQuery(jpql, Review.class).setMaxResults(1000);
+
+        query = query.setParameter("itemName", itemName);
+        return query.getResultList();
+
+    }
+
+    public Review findOneByName(String itemName) {
+        List<Review> reviews = em.createQuery("select r from Review r where r.item.itemName = :itemName", Review.class)
+                .setParameter("itemName", itemName)
+                .getResultList();
+        if (!reviews.isEmpty()) {
+            return reviews.get(0); // 첫 번째 아이템 반환
+        }
+        return null;
     }
 
 
