@@ -58,8 +58,6 @@ public class ItemService {
         return itemRepository.findOne(itemId);
     }
     //item 이름 검색
-    public List<Item> findItemByName(String name) {
-        return itemRepository.findByName(name);
-    }
+    public Item findItemByName(String itemName) {return itemRepository.findOneByName(itemName);}
 
 }

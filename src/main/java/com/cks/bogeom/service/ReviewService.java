@@ -67,4 +67,6 @@ public class ReviewService {
     public List<Review> findReviewsByItemId(Long itemId) {
         return reviewRepository.findById(itemId);
     }
+
+
 }

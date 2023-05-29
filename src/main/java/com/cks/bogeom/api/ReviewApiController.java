@@ -94,7 +94,7 @@ public class ReviewApiController {
     }
 
     //==Review itemId 조회 API==//
-    @GetMapping("/api/reviews/{itemId}")
+    @GetMapping("/api/reviews/{itemName}")
     public ItemReviewResult findByItemId(@PathVariable("itemId") Long itemId){
         List<Review> findReviews = reviewService.findReviewsByItemId(itemId);
         List<ReviewDto> collect = findReviews.stream()
