@@ -109,24 +109,27 @@ public class StorageController {
         //4,5번 : 응답받은 JSON 데이터 : item_id, item_name, item_price
         //item_id를 가져와 해당 item에 대한 응답 데이터를 보낸다.
         //응답받은 데이터
-        JsonNode idValueNode = response.get("item_id");
+        JsonNode idValueNode = response.get("img_id");
         System.out.println(idValueNode.asLong());
         Long id = idValueNode.asLong();
         JsonNode itemNameValueNode = response.get("item_name");
-        System.out.println(itemNameValueNode.asText());
+        String itemName = itemNameValueNode.asText();
+        System.out.println(itemName);
 
         JsonNode itemPriceValueNode = response.get("item_price");
         System.out.println(itemPriceValueNode.asLong());
-        //이름으로 조회해야함
-        return findOneJSON(1L);
 
-        //return new ResponseEntity<>(response, httpStatus);
+        //이름으로 조회한 JSON 데이터
+        return findOneJSON("상품1"); //테스트
+//        return findOneJSON(itemName); //실제 코드
+
     }
 
     //JSON형식으로 보내는 메서드
-    public OneItemResult findOneJSON(Long id){
+    public OneItemResult findOneJSON(String itemName){
         //itemInfo 부분
-        Item findItem = itemService.findOne(id);
+        Item findItem = itemService.findItemByName(itemName);
+        Long id = findItem.getId();
         ItemApiController.OneItemDto oneItemDto = new ItemApiController.OneItemDto(findItem.getId(), findItem.getItemName(), findItem.getItemImg(), findItem.getDetailImg());
 
         //item_online_price 부분
