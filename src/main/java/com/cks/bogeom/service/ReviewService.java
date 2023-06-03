@@ -57,12 +57,6 @@ public class ReviewService {
         return reviewRepository.findOne(reviewId);
     }
 
-
-    //리뷰 검색
-    public List<Review> findReviews(ReviewSearch reviewSearch) {
-        return reviewRepository.findAllByString(reviewSearch);
-    }
-
     //itemId로 review 조회
     public List<Review> findReviewsByItemId(Long itemId) {
         return reviewRepository.findById(itemId);

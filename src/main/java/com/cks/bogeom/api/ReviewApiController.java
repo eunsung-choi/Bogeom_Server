@@ -57,7 +57,11 @@ public class ReviewApiController {
     }
 
     //==Review 수정 API==//
+<<<<<<< HEAD
     @PutMapping("/api/reviews/num/{id}")
+=======
+    @PutMapping("/api/reviews/put/{id}")
+>>>>>>> 675e862 (fix: review API)
     public UpdateReviewResponse updateReview(
             @PathVariable("id") Long id,
             @RequestBody @Valid UpdateReviewRequest request) {
@@ -94,6 +98,7 @@ public class ReviewApiController {
         return new Result(collect);
     }
 
+<<<<<<< HEAD
 //    //==Review itemId 조회 API==//
 //    @GetMapping("/api/reviews/{itemId}")
 //    public ItemReviewResult findByItemId(@PathVariable("itemId") Long itemId){
@@ -115,6 +120,12 @@ public class ReviewApiController {
 
         List<Review> findReviews = reviewService.findReviewsByItemId(itemId);
 
+=======
+    //==Review itemId 조회 API==//
+    @GetMapping("/api/reviews/{itemId}")
+    public ItemReviewResult findByItemId(@PathVariable("itemId") Long itemId){
+        List<Review> findReviews = reviewService.findReviewsByItemId(itemId);
+>>>>>>> 675e862 (fix: review API)
         List<ReviewDto> collect = findReviews.stream()
                 .map(m -> new ReviewDto(m.getItem().getId(),m.getId(), m.getReviewContent(), m.getReviewDate(), m.getReviewRate(),
                         m.getScent(), m.getClean(), m.getStimulation(), m.getSpicy(),
@@ -157,6 +168,7 @@ public class ReviewApiController {
         private T itemId;
         private T itemReviews;
     }
+<<<<<<< HEAD
 
     @Data
     @AllArgsConstructor
@@ -165,3 +177,6 @@ public class ReviewApiController {
         private T itemReviews;
     }
 }
+=======
+}
+>>>>>>> 675e862 (fix: review API)
