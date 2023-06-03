@@ -41,7 +41,7 @@ public class StorageController {
     private String aiServerUrl;
 
 
-//    // Upload image
+    //    // Upload image
 //    @PostMapping("/image")
 //    public ResponseEntity<?> uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
 //        String uploadImage = storageService.uploadImage(file); // Save the original file name
@@ -119,17 +119,14 @@ public class StorageController {
         JsonNode itemPriceValueNode = response.get("item_price");
         System.out.println(itemPriceValueNode.asLong());
 
-        //이름으로 조회한 JSON 데이터
-        return findOneJSON("상품1"); //테스트
-//        return findOneJSON(itemName); //실제 코드
+        //id로 조회한 JSON 데이터
+        return findOneJSON(id); //실제 코드
 
     }
 
-    //JSON형식으로 보내는 메서드
-    public OneItemResult findOneJSON(String itemName){
+    public OneItemResult findOneJSON(Long id){
         //itemInfo 부분
-        Item findItem = itemService.findItemByName(itemName);
-        Long id = findItem.getId();
+        Item findItem = itemService.findOne(id);
         ItemApiController.OneItemDto oneItemDto = new ItemApiController.OneItemDto(findItem.getId(), findItem.getItemName(), findItem.getItemImg(), findItem.getDetailImg());
 
         //item_online_price 부분
@@ -179,6 +176,62 @@ public class StorageController {
         ItemApiController.ReviewItemDto reviewItemDto = new ItemApiController.ReviewItemDto(totalReviewRate, totalScent, totalClean, totalStimulation,totalSpicy, totalAmount, totalTaste, totalSugar,totalSolidity, totalAfterFeel);
         return new OneItemResult(oneItemDto, reviewItemDto, itemMarketDto);
     }
+
+
+//    //JSON형식으로 보내는 메서드
+//    public OneItemResult findOneJSONByName(String itemName){
+//        //itemInfo 부분
+//        Item findItem = itemService.findItemByName(itemName);
+//        Long id = findItem.getId();
+//        ItemApiController.OneItemDto oneItemDto = new ItemApiController.OneItemDto(findItem.getId(), findItem.getItemName(), findItem.getItemImg(), findItem.getDetailImg());
+//
+//        //item_online_price 부분
+//        List<Market> findMarkets = marketService.findMarketsByItemId(id); //itemId로 관련 market 찾기
+//        List<ItemApiController.OneMarketDto> itemMarketDto = findMarkets.stream()
+//                .map(m -> new ItemApiController.OneMarketDto(m.getMarketName(), m.getMarketCode(), m.getMarketLogo(), m.getMarketPrice(), m.getMarketDeliverFee(), m.getMarketLink()))
+//                .collect(Collectors.toList());
+//
+//        //itemReview 부분
+//        //Review들을 불러와서 값을 업데이트하는 과정
+//        long totalScent=0, totalClean=0, totalStimulation=0, totalSpicy=0, totalAmount=0, totalTaste=0, totalSugar=0, totalSolidity=0, totalAfterFeel=0;
+//        long totalReviewRate=0;
+//        List<Review> findReviews = reviewService.findReviewsByItemId(id);
+//        String categoryName = findItem.getCategoryName();
+//        System.out.println("categoryName : "+categoryName);
+//        System.out.println("findReviews : "+findReviews.stream().map(r -> r.getReviewContent()).collect(Collectors.toList()));
+//
+//        for (Review review : findReviews) { //총 합 계산
+//            System.out.println(review.getReviewContent());
+//            totalReviewRate += review.getReviewRate();
+//            totalScent += (review.getScent() != null) ? review.getScent() : 0;
+//            totalClean += (review.getClean() != null) ? review.getClean() : 0;
+//            totalStimulation += (review.getStimulation() != null) ? review.getStimulation() : 0;
+//            totalSpicy += (review.getSpicy() != null) ? review.getSpicy() : 0;
+//            totalAmount += (review.getAmount() != null) ? review.getAmount() : 0;
+//            totalTaste += (review.getTaste() != null) ? review.getTaste() : 0;
+//            totalSugar += (review.getSugar() != null) ? review.getSugar() : 0;
+//            totalSolidity += (review.getSolidity() != null) ? review.getSolidity() : 0;
+//            totalAfterFeel += (review.getAfterFeel() != null) ? review.getAfterFeel() : 0;
+//        }
+//        //평균 구하기
+//        int n = findReviews.size();
+//        if(n!=0){
+//            totalReviewRate /= n;
+//            totalScent /= n;
+//            totalClean /= n;
+//            totalStimulation /= n;
+//            totalSpicy /= n;
+//            totalAmount /= n;
+//            totalTaste /= n;
+//            totalSugar /= n;
+//            totalSolidity /= n;
+//            totalAfterFeel /= n;
+//        }
+//
+//        //dto 만들기
+//        ItemApiController.ReviewItemDto reviewItemDto = new ItemApiController.ReviewItemDto(totalReviewRate, totalScent, totalClean, totalStimulation,totalSpicy, totalAmount, totalTaste, totalSugar,totalSolidity, totalAfterFeel);
+//        return new OneItemResult(oneItemDto, reviewItemDto, itemMarketDto);
+//    }
 
 
 
