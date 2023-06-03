@@ -120,8 +120,8 @@ public class StorageController {
         System.out.println(itemPriceValueNode.asLong());
 
         //이름으로 조회한 JSON 데이터
-        return findOneJSON("상품1"); //테스트
-//        return findOneJSON(itemName); //실제 코드
+//        return findOneJSON("상품1"); //테스트
+        return findOneJSON(itemName); //실제 코드
 
     }
 
