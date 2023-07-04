@@ -14,7 +14,7 @@
 -  REST API
 
 ## 프로젝트 전체 구조
-<img width="452" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/f12d7e9e-deb4-4a35-b23a-08864f3b79d0">
+<p align="center"><img width="600" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/f12d7e9e-deb4-4a35-b23a-08864f3b79d0"></p>
 
 - 모바일 애플리케이션: 사용자가 실시간으로 가격표 객체 탐지가 되는 카메라를 통해 상품의 가격표를 촬영하면 인식된 가격표 이미지가 웹 서버로 전송된다. 
 - 웹 서버: 사용자로부터 전송받은 이미지를 다시 인공지능 서버로 전송한다. 
@@ -25,16 +25,16 @@
 
 ## 메인 서버 및 데이터베이스 설계
 
-<img width="452" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/de072d9f-05fe-4dec-a35a-a529e0adbb7d"> 
+<p align="center"><img width="600" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/de072d9f-05fe-4dec-a35a-a529e0adbb7d"></p>
 </br>
-<img width="418" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/1f43887f-dc35-4c34-81ae-dc7e0c4f57e1">  
+<p align="center"><img width="600" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/1f43887f-dc35-4c34-81ae-dc7e0c4f57e1">  </p>
 </br>
-<img width="452" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/f09ae106-8124-456a-addc-6b21e24e2756">
+<p align="center"><img width="600" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/f09ae106-8124-456a-addc-6b21e24e2756"></p>
 
 ## 모바일 UI 디자인
 
-<img width="805" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/0842b4a0-8274-4cd3-a81f-71193fd3bccb">
+<p align="center"><img width="600" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/0842b4a0-8274-4cd3-a81f-71193fd3bccb"></p>
 
 </br>
 
-<img width="806" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/c7037a15-a51d-42c1-a109-d8f7bb027832">
+<p align="center"><img width="600" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/c7037a15-a51d-42c1-a109-d8f7bb027832"></p>
