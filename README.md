@@ -33,4 +33,4 @@
 
 ## 모바일 UI 디자인
 
-<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/05376459-3798-43dd-b440-7db2f51acf4f"/>
+<img width="100%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/05376459-3798-43dd-b440-7db2f51acf4f"/>
