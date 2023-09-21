@@ -25,11 +25,11 @@
 
 ## 메인 서버 및 데이터베이스 설계
 
-<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/409d7164-bea4-4c2a-b5ac-0c0a348800a8"/>
+<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/03d12abf-dd64-4f40-88f1-bf4fac95dd53"/>
 
 ## API
-<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/58d85d7e-88ac-436b-b536-500be8879386"/>
-<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/f42e3286-cf51-4eab-97a2-427c1f17bad3"/>
+<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/e68d8130-3d73-439e-a1ce-6bdebd6c41b8"/>
+<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/89ba4af2-7f4b-4335-9ff1-eda545483b88"/>
 
 ## 모바일 UI 디자인
 
