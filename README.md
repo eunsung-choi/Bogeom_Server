@@ -14,9 +14,7 @@
 -  REST API
 
 ## 프로젝트 전체 구조
-<p align="center"><img width="600" alt="image" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/f12d7e9e-deb4-4a35-b23a-08864f3b79d0"></p>
-![그림1](https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/00431656-d6e1-4801-a1d4-478bcc6e7ca5)
-
+<img width="80%" src="https://github.com/eunsung-choi/Bogeom_Server/assets/83803746/409d7164-bea4-4c2a-b5ac-0c0a348800a8"/>
 
 - 모바일 애플리케이션: 사용자가 실시간으로 가격표 객체 탐지가 되는 카메라를 통해 상품의 가격표를 촬영하면 인식된 가격표 이미지가 웹 서버로 전송된다. 
 - 웹 서버: 사용자로부터 전송받은 이미지를 다시 인공지능 서버로 전송한다. 
